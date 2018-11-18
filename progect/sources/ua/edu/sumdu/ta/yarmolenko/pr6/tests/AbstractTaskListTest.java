@@ -49,24 +49,27 @@ public abstract class AbstractTaskListTest {
             expected.length, actualA.length);
             
         List<Task> actual = new ArrayList<Task>();
-        for (Task task : actualA)
+        for (Task task : actualA) {
             actual.add(task);
-            
-        for (Task task : expected)
-            if (actual.contains(task))
+        }    
+        for (Task task : expected) {
+            if (actual.contains(task)){
                 actual.remove(task);
-            else
+            } else {
                 fail(getTitle() + ": Task "+ task +" expected to be in list");
-                
-        if (! actual.isEmpty())
+            }    
+        }    
+        if (! actual.isEmpty()) {
             fail(getTitle() + ": Tasks "+ actual +" are unexpected in list");
+        }    
     }
 
     protected void assertContains(Task[] expected) {
         Task[] actual = new Task[tasks.size()];
         int i = 0;
-        for(int j=0; j< tasks.size(); j++)
-            actual[i++] = tasks.getTask(j);
+        for (Task task : tasks){
+            actual[i++] = task;
+        }    
         assertContains(expected, actual);
     }
 

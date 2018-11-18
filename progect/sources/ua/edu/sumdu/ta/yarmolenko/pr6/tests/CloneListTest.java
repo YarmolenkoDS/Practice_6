@@ -23,9 +23,9 @@ public class CloneListTest extends AbstractTaskListTest {
         AbstractTaskList ti = tasks;
         AbstractTaskList ci = clone;
 
-        for(int i=0; i< ti.size(); i++)
+        for(int i=0; i< ti.size(); i++){
             assertEquals(getTitle(), ti.clone(), ci.clone());
-
+        }
         assertNotSame(getTitle(), tasks, clone);
         
         clone.add(task("D"));

@@ -12,10 +12,12 @@ package ua.edu.sumdu.ta.yarmolenko.pr6;
 
 import ua.edu.sumdu.ta.yarmolenko.pr6.*;
 
+import java.util.*;
+
 /**
  * Abstract class AbstractTaskList describes the AbstractTaskList data type
  */
-public abstract class AbstractTaskList {
+public abstract class AbstractTaskList implements Iterable<Task>, Cloneable {
     
     public final String START_OF_TASK_TITLE = "[EDUCTR][TA]";
 
@@ -26,6 +28,8 @@ public abstract class AbstractTaskList {
         numberOfListsCreated++;
         this.counterOfTasksInList = 0;
     }
+    
+    public abstract AbstractTaskList clone();
 
     /**
      * Method to get the number of created task lists
@@ -59,14 +63,6 @@ public abstract class AbstractTaskList {
         return counterOfTasksInList;
     }
 
-    /**
-     * Method to get the task with the specified number
-     *
-     * @param index is the task number in the list which should be returned (starting from zero)
-     * @return the task whose index in the list is equal to the input
-     */
-    public abstract Task getTask(int index);
-    
     /**
      * The method returns an array of tasks from the list whose notification time 
      *  is between from (exclusively) and to (inclusive)

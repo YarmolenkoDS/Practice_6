@@ -12,10 +12,14 @@ package ua.edu.sumdu.ta.yarmolenko.pr6;
 
 import ua.edu.sumdu.ta.yarmolenko.pr6.*;
 
+import java.util.*;
+import java.util.List.*;
+import java.util.LinkedList.*;
+
 /**
  * Class LinkedTaskList describes the LinkedTaskList data type
  */
-public class LinkedTaskList extends AbstractTaskList{
+public class LinkedTaskList extends AbstractTaskList {
 
     private LinkedListNode firstElementOfList;
 
@@ -26,7 +30,38 @@ public class LinkedTaskList extends AbstractTaskList{
         super();
         this.firstElementOfList = new LinkedListNode(null);
     }
+    
+    public AbstractTaskList clone() {
+        LinkedTaskList clonedTaskList = new LinkedTaskList();
+//        for (Task el : this) {
+//            clonedTaskList.add(el.clone());
+//        }
+        return clonedTaskList;
+    }
+    
+    @Override
+    public Iterator<Task> iterator() {
+        Iterator<Task> it = new Iterator<Task>() {
 
+            private LinkedListNode currentElementOfList = firstElementOfList;
+
+            @Override
+            public boolean hasNext() {
+                return currentElementOfList.next != null;
+            }
+
+            @Override
+            public Task next() {
+                return currentElementOfList.listItemData;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
+    }
     /**
      * Method for adding non-unique tasks
      *
@@ -64,7 +99,7 @@ public class LinkedTaskList extends AbstractTaskList{
         if (firstElementOfList.listItemData == null){
             throw new NullPointerException();
         }
-
+        task.setTitle(START_OF_TASK_TITLE + task.getTitle());
         while (firstElementOfList.listItemData.equals(task)) {
             if (firstElementOfList.next != null) {
                 firstElementOfList = firstElementOfList.next;
@@ -89,25 +124,6 @@ public class LinkedTaskList extends AbstractTaskList{
         }
 
 
-    }
-
-    /**
-     * Method to get the task with the specified number
-     *
-     * @param index is the task number in the list which should be returned (starting from zero)
-     * @return the task whose index in the list is equal to the input
-     */	
-    public Task getTask(int index) throws IndexOutOfBoundsException {
-        if ((index >= size()) || (index < 0) || (size() == 0)) {
-            throw new IndexOutOfBoundsException();
-        }
-        int tempIndex = 0;
-        LinkedListNode currentElementOfList = firstElementOfList;
-        while (tempIndex != index){
-            currentElementOfList = currentElementOfList.next;
-            tempIndex++;
-        }
-        return currentElementOfList.listItemData;
     }
 
     /**

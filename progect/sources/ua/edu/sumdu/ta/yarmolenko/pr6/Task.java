@@ -13,7 +13,7 @@ package ua.edu.sumdu.ta.yarmolenko.pr6;
 /**
  * Class Task describes the Task data type
  */
-public class Task implements Cloneable{
+public class Task implements Cloneable {
 
     private String taskTitle;
     private boolean taskActive;
@@ -49,8 +49,11 @@ public class Task implements Cloneable{
         setActive(false);		
     }
 
-    public Task clone() throws CloneNotSupportedException{
-        return (Task) super.clone();
+    public Task clone() throws CloneNotSupportedException {
+        if (isRepeated()) {
+            return new Task(getTitle(), getStartTime(), getEndTime(), getRepeatInterval());
+        }
+        return new Task(getTitle(), getTime());
     }
     
     /**
@@ -66,10 +69,15 @@ public class Task implements Cloneable{
             return false;
         }
         Task task = (Task) obj;
-        return (getTitle() != null && getTitle().equals(task.getTitle()))
-            && (isActive() == task.isActive()) && (isRepeated() == task.isRepeated())
-            && (getTime() == task.getTime()) && (getStartTime() == task.getStartTime())
-            && (getEndTime() == task.getEndTime()) && (getRepeatInterval() == task.getRepeatInterval());
+        boolean b = (getTitle() != null && getTitle().equals(task.getTitle())
+            && (this.isActive() == task.isActive())
+			&& (this.isRepeated() == task.isRepeated())
+            && (this.getTime() == task.getTime()) 
+			&& (this.getStartTime() == task.getStartTime())
+            && (this.getEndTime() == task.getEndTime()) 
+			&& (this.getRepeatInterval() == task.getRepeatInterval()));
+		System.out.println("value equals " + b );
+		return b;
     }
 
     /**

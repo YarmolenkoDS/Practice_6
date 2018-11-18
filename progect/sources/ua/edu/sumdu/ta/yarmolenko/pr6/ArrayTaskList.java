@@ -12,6 +12,10 @@ package ua.edu.sumdu.ta.yarmolenko.pr6;
 
 import ua.edu.sumdu.ta.yarmolenko.pr6.*;
 
+import java.util.*;
+import java.util.List.*;
+import java.util.LinkedList.*;
+
 /**
  * Class ArrayTaskList describes the ArrayTaskList data type
  */
@@ -29,6 +33,36 @@ public class ArrayTaskList extends AbstractTaskList {
         this.taskList = new Task[RESIZE_ARRAY];       
     }
 
+    public ArrayTaskList clone() {
+        ArrayTaskList clonedTaskList = new ArrayTaskList();
+        for (Task el : taskList) {
+            Task tempT = new Task(el.getTitle(), 0);
+//          clonedTaskList.add(el.clone());
+          clonedTaskList.add(tempT);
+        }
+        return clonedTaskList;
+    }
+
+    public Iterator<Task> iterator() {
+        Iterator<Task> it = new Iterator<Task>() {
+
+            private int currentIndex = 0;
+
+            public boolean hasNext() {
+                return currentIndex < size() && taskList[currentIndex] != null;
+            }
+
+            public Task next() {
+                return taskList[currentIndex++];
+            }
+
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
+    }  
+    
     /**
      * Method for adding non-unique tasks
      *
@@ -63,6 +97,7 @@ public class ArrayTaskList extends AbstractTaskList {
             Task[] tempResizeRemoveList;
             int tempIndex = 0;
             int newlength = 0;
+            task.setTitle(START_OF_TASK_TITLE + task.getTitle());
             for (int i = 0; i < taskList.length; i++) {
                 if ((taskList[i] != null) && !(taskList[i].equals(task))) {
                     tempRemoveList[tempIndex] = taskList[i];
@@ -85,19 +120,6 @@ public class ArrayTaskList extends AbstractTaskList {
         } else {
             throw new NullPointerException(); 
         }
-    }
-
-    /**
-     * Method to get the task with the specified number
-     *
-     * @param index is the task number in the list which should be returned (starting from zero)
-     * @return the task whose index in the list is equal to the input
-     */	
-    public Task getTask(int index) throws IndexOutOfBoundsException {
-        if ((index >= size()) || (index < 0) || (size() == 0)) {
-            throw new IndexOutOfBoundsException();
-        }
-        return taskList[index];
     }
 
     /**

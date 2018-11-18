@@ -63,15 +63,15 @@ class DummyList extends AbstractTaskList {
     public void add(Task task) { }
     
     public void remove(Task task) { }
+
+    public Task[] toArray() { 
+        return new Task[0];
+    }
     
     public int size() { 
         return 0; 
     }
-    
-    public Task getTask(int index) { 
-        throw new IndexOutOfBoundsException();
-    }
-    
+  
     public Iterator<Task> iterator() {
         return Collections.<Task>emptyList().iterator();
     }

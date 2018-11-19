@@ -13,8 +13,7 @@ package ua.edu.sumdu.ta.yarmolenko.pr6;
 import ua.edu.sumdu.ta.yarmolenko.pr6.*;
 
 import java.util.*;
-import java.util.List.*;
-import java.util.LinkedList.*;
+
 
 /**
  * Class ArrayTaskList describes the ArrayTaskList data type
@@ -33,31 +32,28 @@ public class ArrayTaskList extends AbstractTaskList {
         this.taskList = new Task[RESIZE_ARRAY];       
     }
 
-    public ArrayTaskList clone() {
-        ArrayTaskList clonedTaskList = new ArrayTaskList();
-        for (Task el : taskList) {
-            Task tempT = new Task(el.getTitle(), 0);
-//          clonedTaskList.add(el.clone());
-          clonedTaskList.add(tempT);
-        }
-        return clonedTaskList;
-    }
-
+    /**
+     * Used to iterate through the task list
+     */
     public Iterator<Task> iterator() {
         Iterator<Task> it = new Iterator<Task>() {
-
             private int currentIndex = 0;
 
+            /*
+             * Returns true if the iteration has more elements
+             */
             public boolean hasNext() {
                 return currentIndex < size() && taskList[currentIndex] != null;
             }
-
+            
+            /*
+             * Returns the next element in the iteration
+             */
             public Task next() {
-                return taskList[currentIndex++];
-            }
-
-            public void remove() {
-                throw new UnsupportedOperationException();
+                if (hasNext()) {
+                    return taskList[currentIndex++];
+                }
+                return null;
             }
         };
         return it;
@@ -66,7 +62,7 @@ public class ArrayTaskList extends AbstractTaskList {
     /**
      * Method for adding non-unique tasks
      *
-     * @param task is an object of type task added to task list
+     * @param task is an object of type Task added to task list
      */	
     public void add(Task task) throws NullPointerException {
         if (task != null) {   
@@ -113,8 +109,7 @@ public class ArrayTaskList extends AbstractTaskList {
                     tempResizeRemoveList[i] = tempRemoveList[i];
                 }
                 taskList = tempResizeRemoveList;
-            } else {
-                taskList = tempRemoveList;
+                return;
             }
             taskList = tempRemoveList;
         } else {

@@ -13,8 +13,7 @@ package ua.edu.sumdu.ta.yarmolenko.pr6;
 import ua.edu.sumdu.ta.yarmolenko.pr6.*;
 
 import java.util.*;
-import java.util.List.*;
-import java.util.LinkedList.*;
+
 
 /**
  * Class LinkedTaskList describes the LinkedTaskList data type
@@ -30,45 +29,43 @@ public class LinkedTaskList extends AbstractTaskList {
         super();
         this.firstElementOfList = new LinkedListNode(null);
     }
-    
-    public AbstractTaskList clone() {
-        LinkedTaskList clonedTaskList = new LinkedTaskList();
-//        for (Task el : this) {
-//            clonedTaskList.add(el.clone());
-//        }
-        return clonedTaskList;
-    }
-    
-    @Override
+
+    /**
+     * Used to iterate through the task list
+     */
     public Iterator<Task> iterator() {
         Iterator<Task> it = new Iterator<Task>() {
-
             private LinkedListNode currentElementOfList = firstElementOfList;
 
-            @Override
+            /*
+             * Returns true if the iteration has more elements
+             */
             public boolean hasNext() {
-                return currentElementOfList.next != null;
+                return currentElementOfList != null;
             }
-
-            @Override
-            public Task next() {
-                return currentElementOfList.listItemData;
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
+            
+            /*
+             * Returns the next element in the iteration
+             */
+             public Task next() {
+                if (hasNext()) {
+                    Task data = currentElementOfList.listItemData;
+                    currentElementOfList = currentElementOfList.next;
+                    return data;
+                }
+                return null;
             }
         };
         return it;
     }
+
     /**
      * Method for adding non-unique tasks
      *
      * @param task is an object of type task added to task list
      */	
     public void add(Task task) throws NullPointerException {
-        if (task != null) {   
+        if (task != null) {
             task.setTitle(START_OF_TASK_TITLE + task.getTitle());
             LinkedListNode lastElementOfList = new LinkedListNode(task);
             if (firstElementOfList.listItemData == null) {
@@ -110,7 +107,6 @@ public class LinkedTaskList extends AbstractTaskList {
                 return;
             }
         }
-
         LinkedListNode prevElementOfList = firstElementOfList;
         LinkedListNode currentElementOfList = firstElementOfList;
         while (prevElementOfList != null) {
@@ -122,8 +118,6 @@ public class LinkedTaskList extends AbstractTaskList {
             prevElementOfList.next = currentElementOfList;
             prevElementOfList = currentElementOfList;
         }
-
-
     }
 
     /**

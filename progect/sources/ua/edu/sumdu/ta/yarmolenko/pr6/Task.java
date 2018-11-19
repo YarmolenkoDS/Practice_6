@@ -34,7 +34,7 @@ public class Task implements Cloneable {
         setTime(time);
         setActive(false);
     }
-    
+
     /**
      * Constructor for creating an object recurring task
      *
@@ -49,17 +49,19 @@ public class Task implements Cloneable {
         setActive(false);		
     }
 
-    public Task clone() throws CloneNotSupportedException {
-        if (isRepeated()) {
-            return new Task(getTitle(), getStartTime(), getEndTime(), getRepeatInterval());
-        }
-        return new Task(getTitle(), getTime());
-    }
-    
     /**
-     * Method to comparing objects
+     * Method to creating the object copy of type Task
      *
-     * @return boolean value containing the result of comparing objects
+     * @return the object copy of type Task
+     */
+    public Task clone() throws CloneNotSupportedException {
+        return (Task) super.clone();
+    }
+
+    /**
+     * Method to comparing objects of type Task
+     *
+     * @return boolean value containing the result of comparing objects of type Task
      */	
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -69,21 +71,19 @@ public class Task implements Cloneable {
             return false;
         }
         Task task = (Task) obj;
-        boolean b = (getTitle() != null && getTitle().equals(task.getTitle())
+        return (getTitle() != null && getTitle().equals(task.getTitle())
             && (this.isActive() == task.isActive())
-			&& (this.isRepeated() == task.isRepeated())
+            && (this.isRepeated() == task.isRepeated())
             && (this.getTime() == task.getTime()) 
-			&& (this.getStartTime() == task.getStartTime())
+            && (this.getStartTime() == task.getStartTime())
             && (this.getEndTime() == task.getEndTime()) 
-			&& (this.getRepeatInterval() == task.getRepeatInterval()));
-		System.out.println("value equals " + b );
-		return b;
+            && (this.getRepeatInterval() == task.getRepeatInterval()));
     }
 
     /**
-     * Method to generate an integer object code
+     * Method to generate an integer object code for objects of type Task
      *
-     * @return an integer object code
+     * @return an integer object code for objects of type Task
      */	
     public int hashCode() {
         final int prime = 31;
@@ -127,7 +127,7 @@ public class Task implements Cloneable {
     public boolean isActive() {
         return taskActive;
     }
-    
+
     /**
      * Method of setting task activity status
      *

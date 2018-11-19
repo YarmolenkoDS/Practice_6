@@ -19,8 +19,8 @@ import org.junit.runners.Suite.SuiteClasses;
     CloneTaskTest.class,
     EqualsTaskTest.class,
     TaskListTest.class,
- //   CloneListTest.class,
-//    EqualsListTest.class
+    CloneListTest.class,
+    EqualsListTest.class
 })
 public class AllTests { }
 
